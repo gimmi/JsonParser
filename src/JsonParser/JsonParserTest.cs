@@ -93,5 +93,19 @@ namespace JsonParser
 			Assert.That(o["objProp"]["emptyAry"], Has.Count.EqualTo(0));
 			Assert.That(o["objProp"]["emptyObj"], Has.Count.EqualTo(0));
 		}
+
+	        [Test]
+	        public void Should_parse_escaped_chars()
+	        {
+	            Assert.That(JsonParser.Parse("\"\\a\""), Is.EqualTo("\a"));
+	            Assert.That(JsonParser.Parse("\"\\b\""), Is.EqualTo("\b"));
+	            Assert.That(JsonParser.Parse("\"\\f\""), Is.EqualTo("\f"));
+	            Assert.That(JsonParser.Parse("\"\\r\""), Is.EqualTo("\r"));
+	            Assert.That(JsonParser.Parse("\"\\n\""), Is.EqualTo("\n"));
+	            Assert.That(JsonParser.Parse("\"\\t\""), Is.EqualTo("\t"));
+	            Assert.That(JsonParser.Parse("\"\\v\""), Is.EqualTo("\v"));
+	            Assert.That(JsonParser.Parse("\"\\\"\""), Is.EqualTo("\""));
+	            Assert.That(JsonParser.Parse("\"\\\\\""), Is.EqualTo("\\"));
+	        }
 	}
 }
