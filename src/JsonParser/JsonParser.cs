@@ -115,9 +115,6 @@ namespace JsonParser
                     ch = en.ReadOrFail();
                     switch (ch)
                     {
-                        case '\\':
-                            sb.Append('\\');
-                            break;
                         case 'a':
                             sb.Append('\a');
                             break;
@@ -140,7 +137,8 @@ namespace JsonParser
                             sb.Append('\v');
                             break;
                         default:
-                            throw new FormatException(string.Format(@"Unexpected escaped char \{0}", ch));
+                            sb.Append(ch);
+                            break;
                     }
                 }
                 else if (ch == '"')
