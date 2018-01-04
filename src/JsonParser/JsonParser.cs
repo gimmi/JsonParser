@@ -97,7 +97,6 @@ namespace JsonParser
 
         private static string ParseString(TextReader en)
         {
-            en.EatWhitespaces();
             var ch = en.ReadOrFail();
             if (ch != '"')
             {
