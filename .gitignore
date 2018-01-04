@@ -17,3 +17,4 @@ src/_ReSharper.*
 /build/
 /src/SharedAssemblyInfo.cs
 /tools/NUnit.Runners.*/
+/src/.idea/
