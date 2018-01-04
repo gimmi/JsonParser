@@ -18,6 +18,7 @@ namespace JsonParser
         public void Should_parse_strings()
         {
             Assert.That(JsonParser.Parse("  \" a b c \"  "), Is.EqualTo(" a b c "));
+            Assert.That(JsonParser.Parse("\"\\a\\b\\f\\r\\n\\t\\v\""), Is.EqualTo("\a\b\f\r\n\t\v"));
         }
 
         [Test]
