@@ -72,7 +72,9 @@ namespace JsonParser
                 return false;
             }
             if (ch == '"')
+            {
                 return ParseString(en);
+            }
             if (ch == '-' || char.IsDigit(ch))
             {
                 var sb = new StringBuilder();
@@ -84,12 +86,13 @@ namespace JsonParser
                         break;
                     ch = (char) peek;
                 }
-                decimal result;
-                if (decimal.TryParse(sb.ToString(), NumberStyles.Float, CultureInfo.InvariantCulture, out result))
+                if (decimal.TryParse(sb.ToString(), NumberStyles.Float, CultureInfo.InvariantCulture, out var result))
+                {
                     return result;
-                throw new FormatException(string.Format("Unable to parse '{0}' as number", sb));
+                }
+                throw new FormatException($"Unable to parse '{sb}' as number");
             }
-            throw new FormatException(string.Format("Unexpected char '{0}'", ch));
+            throw new FormatException($"Unexpected char '{ch}'");
         }
 
         private static string ParseString(TextReader en)
@@ -97,7 +100,9 @@ namespace JsonParser
             en.EatWhitespaces();
             var ch = en.ReadOrFail();
             if (ch != '"')
-                throw new FormatException(string.Format("Expected '\"', found '{0}'", ch));
+            {
+                throw new FormatException($"Expected '\"', found '{ch}'");
+            }
             var sb = new StringBuilder();
             while (true)
             {
@@ -150,7 +155,9 @@ namespace JsonParser
             {
                 var actual = tr.ReadOrFail();
                 if (actual != expected)
-                    throw new FormatException(string.Format("Expected '{0}', found '{1}'", expected, actual));
+                {
+                    throw new FormatException($"Expected '{expected}', found '{actual}'");
+                }
             }
         }
 
@@ -158,7 +165,9 @@ namespace JsonParser
         {
             var read = tr.Read();
             if (read == -1)
+            {
                 throw new FormatException("Unexpected end of stream");
+            }
             return (char) read;
         }
 
@@ -166,7 +175,9 @@ namespace JsonParser
         {
             var peek = tr.Peek();
             if (peek == -1)
+            {
                 throw new FormatException("Unexpected end of stream");
+            }
             return (char) peek;
         }
 
